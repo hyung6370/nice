@@ -1,0 +1,17 @@
+.nice_logo {
+   font-family: 'Black Han Sans', sans-serif;
+}
+
+.nice_footer_button {
+    font-size: .6rem;
+}
+
+.nice_footer {
+    text-align:center;
+    margin-top: 2rem;
+}
+
+.nice_header{
+    text-align:center;
+    margin: 2rem 0;
+}
