@@ -20,7 +20,7 @@ has_ownership = [account_ownership_required, login_required]
 class AccountCreateView(CreateView):
     model = User
     form_class = UserCreationForm
-    success_url = reverse_lazy('accountapp:hello_world')
+    success_url = reverse_lazy('home')
     template_name = 'accountapp/create.html'
 
 
@@ -32,7 +32,7 @@ class AccountDetailView(DetailView, MultipleObjectMixin):
     paginate_by = 25
 
     def get_context_data(self, **kwargs):
-        object_list = Article.objects.filter(writer=self.get_object())
+        object_list = Article.objects.filter(writer=self.get_object()).order_by('-pk')
         return super(AccountDetailView, self).get_context_data(object_list=object_list, **kwargs)
 
 
@@ -42,7 +42,7 @@ class AccountUpdateView(UpdateView):
     model = User
     context_object_name = 'target_user'
     form_class = AccountUpdateForm
-    success_url = reverse_lazy('accountapp:hello_world')
+    success_url = reverse_lazy('home')
     template_name = 'accountapp/update.html'
 
 
