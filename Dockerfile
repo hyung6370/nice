@@ -2,7 +2,9 @@ FROM python:3.9.0
 
 WORKDIR /home/
 
-RUN git clone https://www.github.com/hyung6370/nice.git
+RUN echo "testing12345"
+
+RUN git clone https://github.com/hyung6370/nice.git
 
 WORKDIR /home/nice/
 
@@ -10,12 +12,8 @@ RUN pip install -r requirements.txt
 
 RUN pip install gunicorn
 
-RUN echo "SECRET_KEY=django-insecure-u&jxndgn2l+*sgst*&ga(ay$no(v3n8)73jro8s*3rtg*ty--j" > .env
-
-RUN python manage.py migrate
-
-RUN python manage.py collectstatic
+RUN pip install mysqlclient
 
 EXPOSE 8000
 
-CMD ["gunicorn", "nice.wsgi", "--bind", "0.0.0.0:8000"]
+CMD ["bash", "-c", "python manage.py collectstatic --noinput --settings=nice.settings.deploy && python manage.py migrate --settings=nice.settings.deploy && gunicorn nice.wsgi --env DJANGO_SETTINGS_MODULE=nice.settings.deploy --bind 0.0.0.0:8000"]
